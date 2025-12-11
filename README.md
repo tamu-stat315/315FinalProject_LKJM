@@ -2,6 +2,8 @@
 
 A comprehensive statistical analysis of sleep health patterns and lifestyle factors using machine learning, containerized with Docker for reproducible execution.
 
+Download Zip or clone the repo using the https.
+
 ## Prerequisites
 
 Before running this project, ensure you have:
