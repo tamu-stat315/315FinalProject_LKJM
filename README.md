@@ -16,7 +16,7 @@ In a terminal window, navigate to the local directory containing the `docker-com
 cd path/to/sleep-health-analysis
 ```
 
-### 3. Clear Any Existing Containers (Optional but Recommended)
+### 3. Clear Any Existing Containers
 
 If you have previously run Docker containers that may be using port 8888, run:
 
@@ -57,7 +57,6 @@ Once Jupyter opens:
 - Navigate to and open `sleep_analysis.ipynb`
 - Run all cells sequentially to execute the complete analysis
 
-**Note:** The analysis and model training (sections 3-4) may take **10-20 minutes** to complete.
 
 ## Stopping the Environment
 
@@ -72,37 +71,6 @@ To remove all containers and images, run:
 ```bash
 docker compose down --rmi all
 ```
-
-## Troubleshooting
-
-### Port Already in Use
-
-If you get a port error, edit the `docker-compose.yml` file and change the port mapping:
-
-```yaml
-ports:
-  - "8889:8888"  # Changed from 8888:8888
-```
-
-Then access Jupyter at: `http://127.0.0.1:8889`
-
-### Container Won't Start
-
-Ensure Docker Desktop is running, then try:
-
-```bash
-docker compose down
-docker compose up --build
-```
-
-### View Logs
-
-To see container logs and troubleshoot issues:
-
-```bash
-docker compose logs -f
-```
-
 ## Project Structure
 
 ```
