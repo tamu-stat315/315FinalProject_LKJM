@@ -1,0 +1,125 @@
+# Sleep Health and Lifestyle Analysis - Docker Setup
+
+**Description:** Docker environment for running the Sleep Health and Lifestyle Analysis project with Jupyter Notebook, machine learning libraries, and all dependencies pre-configured.
+
+## Quick Start Guide
+
+### 1. Download and Extract the Project
+
+Download the zipped folder containing all files from this repository and extract it to a local directory of your choosing.
+
+### 2. Navigate to the Project Directory
+
+In a terminal window, navigate to the local directory containing the `docker-compose.yml` file:
+
+```bash
+cd path/to/sleep-health-analysis
+```
+
+### 3. Start the Docker Environment
+
+Run the following command to download the Docker images and create the containers:
+
+```bash
+docker compose up
+```
+
+This will:
+- Build the Python environment with all dependencies
+- Start the Jupyter Notebook server
+- Display the access URL in the terminal
+
+⏱️ **First run may take 3-5 minutes** as Docker downloads and builds the images.
+
+### 4. Access Jupyter Notebook
+
+In a web browser, copy and paste the custom URL provided in the terminal window. It will look similar to:
+
+```
+http://127.0.0.1:8888/?token=abc123def456ghi789jkl012mno345pqr
+```
+
+Paste this full URL into your browser to access the Jupyter Notebook environment.
+
+### 5. Run the Analysis
+
+Once Jupyter opens:
+- Navigate to and open `sleep_analysis.ipynb`
+- Run all cells sequentially to execute the complete analysis
+
+⏱️ **Note:** The analysis and model training (sections 3-4) may take **10-20 minutes** to complete.
+
+## Stopping the Environment
+
+To stop the Docker containers, press `Ctrl+C` in the terminal window, or run:
+
+```bash
+docker compose down
+```
+
+To remove all containers and images, run:
+
+```bash
+docker compose down --rmi all
+```
+
+## Troubleshooting
+
+### Port Already in Use
+
+If you get a port error, edit the `docker-compose.yml` file and change the port mapping:
+
+```yaml
+ports:
+  - "8889:8888"  # Changed from 8888:8888
+```
+
+Then access Jupyter at: `http://127.0.0.1:8889`
+
+### Container Won't Start
+
+Ensure Docker Desktop is running, then try:
+
+```bash
+docker compose down
+docker compose up --build
+```
+
+### View Logs
+
+To see container logs and troubleshoot issues:
+
+```bash
+docker compose logs -f
+```
+
+## Project Structure
+
+```
+sleep-health-analysis/
+├── data.csv                    # Dataset (374 observations)
+├── sleep_analysis.ipynb        # Main analysis notebook
+├── docker-compose.yml          # Docker Compose configuration
+├── Dockerfile                  # Docker image specification
+├── requirements.txt            # Python dependencies
+└── README.md                   # Detailed project documentation
+```
+
+## Analysis Workflow
+
+The notebook includes the following sections:
+
+1. **Data Cleaning and Preparation** - Feature engineering, categorical variable creation
+2. **Exploratory Data Analysis (EDA)** - Four comprehensive visualizations of lifestyle factors, occupation, and sleep quality predictors
+3. **Predictive Modeling** - Machine learning models (Logistic Regression, Random Forest, XGBoost)
+4. **Model Evaluation** - Cross-validation, hyperparameter tuning, confusion matrices, and performance metrics
+
+## Additional Resources
+
+- For detailed project information, see [README.md](README.md)
+- For local installation without Docker, see the **Local Installation** section in README.md
+
+---
+
+**Authors:** Jyo Madhavarapu and Likith Kancharlapalli  
+**Last Updated:** December 2024
