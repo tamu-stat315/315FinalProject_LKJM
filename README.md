@@ -51,42 +51,7 @@ sleep-health-analysis/
 - **Version Control:** GitHub
 - **Containerization:** Docker
 
-## Installation & Setup
-
-### Option 1: Local Installation
-
-#### Prerequisites
-
-- Python 3.8 or higher
-- pip or conda
-
-#### Steps
-
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd sleep-health-analysis
-   ```
-
-2. Create a virtual environment:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. Ensure `data.csv` is in the project directory
-
-5. Run Jupyter Notebook:
-   ```bash
-   jupyter notebook sleep_analysis.ipynb
-   ```
-
-### Option 2: Docker Installation (Recommended)
+## Docker Installation
 
 #### Prerequisites
 
