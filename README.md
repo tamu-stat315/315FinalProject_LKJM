@@ -1,75 +1,112 @@
-# Sleep Health and Lifestyle Analysis - Docker Setup
+# Sleep Health and Lifestyle Analysis
 
-**Description:** Docker environment for running the Sleep Health and Lifestyle Analysis project with Jupyter Notebook, machine learning libraries, and all dependencies pre-configured.
+A comprehensive statistical analysis of sleep health patterns and lifestyle factors using machine learning, containerized with Docker for reproducible execution.
 
-## Quick Start Guide
+## Prerequisites
 
-### 1. Download and Extract the Project
+Before running this project, ensure you have:
+- **Docker Desktop** installed on your system ([Download here](https://www.docker.com/products/docker-desktop))
+- At least **2GB of free disk space** for the Docker image
+- Port **8888** available on your machine
 
-Download the zipped folder containing all files from this repository and extract it to a local directory of your choosing.
+## Running the Container
 
-### 2. Navigate to the Project Directory
+### Method 1: Using Docker Compose (Recommended)
 
-In a terminal window, navigate to the local directory containing the `docker-compose.yml` file:
+This is the simplest method and automatically handles all configuration.
 
+1. **Navigate to the project directory:**
+   ```bash
+   cd /path/to/315FinalProject_LKJM-main
+   ```
+
+2. **Build and start the container:**
+   ```bash
+   docker compose up
+   ```
+   
+   On first run, this will:
+   - Build the Python 3.10 environment
+   - Install all required dependencies (pandas, scikit-learn, xgboost, etc.)
+   - Start Jupyter Notebook server
+   - **This may take 3-5 minutes**
+
+3. **Access Jupyter Notebook:**
+   - Look for a URL in the terminal output that looks like:
+     ```
+     http://127.0.0.1:8888/tree?token=abc123...
+     ```
+   - Copy and paste the **complete URL** (including the token) into your web browser
+   - You should see the Jupyter Notebook interface with your project files
+
+4. **Open and run the analysis:**
+   - Click on `sleep_analysis.ipynb` to open the notebook
+   - Run cells individually or use "Run All" from the Cell menu
+
+5. **Stop the container:**
+   - Press `Ctrl+C` in the terminal, then run:
+     ```bash
+     docker compose down
+     ```
+
+### Method 2: Using Docker Build and Run
+
+If you prefer manual Docker commands:
+
+1. **Build the Docker image:**
+   ```bash
+   docker build -t sleep-analysis .
+   ```
+
+2. **Run the container:**
+   ```bash
+   docker run -p 8888:8888 -v $(pwd):/workspace sleep-analysis
+   ```
+   
+   This command:
+   - Maps port 8888 from container to your local machine
+   - Mounts the current directory so changes are saved locally
+
+3. **Access Jupyter:**
+   - Copy the URL with token from terminal output
+   - Paste into your browser
+
+4. **Stop the container:**
+   ```bash
+   docker ps  # Find the container ID
+   docker stop <container_id>
+   ```
+
+## Troubleshooting
+
+### Port 8888 Already in Use
+If you get a "port already allocated" error:
 ```bash
-cd path/to/sleep-health-analysis
+# Find what's using port 8888
+lsof -i :8888
+
+# Or use a different port:
+docker run -p 8889:8888 -v $(pwd):/workspace sleep-analysis
+# Then access at http://127.0.0.1:8889
 ```
 
-### 3. Clear Any Existing Containers
-
-If you have previously run Docker containers that may be using port 8888, run:
-
+### Container Builds But Won't Start
 ```bash
+# Clean up old containers and images
 docker compose down
+docker system prune -f
+
+# Rebuild from scratch
+docker compose up --build
 ```
 
-This will stop and remove any existing containers from this project.
+### Changes Not Saving
+Ensure you're using the volume mount (`-v $(pwd):/workspace`) when running manually, or use docker-compose which handles this automatically.
 
-### 4. Start the Docker Environment
-
-Run the following command to download the Docker images and create the containers:
-
+### No Token in URL
+If the URL appears without a token, run this inside the container:
 ```bash
-docker compose up
-```
-
-This will:
-- Build the Python environment with all dependencies
-- Start the Jupyter Notebook server
-- Display the access URL in the terminal
-
-**First run may take 3-5 minutes** as Docker downloads and builds the images.
-
-### 5. Access Jupyter Notebook
-
-In a web browser, copy and paste the custom URL provided in the terminal window. It will look similar to:
-
-```
-http://127.0.0.1:8888/?token=abc123def456ghi789jkl012mno345pqr
-```
-
-Paste this full URL into your browser to access the Jupyter Notebook environment.
-
-### 6. Run the Analysis
-
-Once Jupyter opens:
-- Navigate to and open `sleep_analysis.ipynb`
-- Run all cells sequentially to execute the complete analysis
-
-
-## Stopping the Environment
-
-To stop the Docker containers, press `Ctrl+C` in the terminal window, or run:
-
-```bash
-docker compose down
-```
-
-To remove all containers and images, run:
-
-```bash
-docker compose down --rmi all
+jupyter notebook list
 ```
 ## Project Structure
 
